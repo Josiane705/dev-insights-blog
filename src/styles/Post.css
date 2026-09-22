@@ -1,0 +1,20 @@
+.post {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.post .author {
+  color: #555;
+  font-style: italic;
+}
+
+.post .date {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.highlighted {
+  background-color: #fff8dc;
+}
