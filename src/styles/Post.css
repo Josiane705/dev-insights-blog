@@ -17,4 +17,9 @@
 
 .highlighted {
   background-color: #fff8dc;
+  color: #222;
+}
+
+.highlighted h2 {
+  color: #222;
 }

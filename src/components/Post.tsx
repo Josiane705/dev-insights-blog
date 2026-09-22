@@ -1,13 +1,16 @@
 import type { Post as PostType } from "./types";
+import "../styles/Post.css";
 
 interface PostProps {
   post: PostType;
 }
 
 const Post = ({ post }: PostProps) => {
+  const isJosiane = post.author === "Josiane";
+
   return (
-    <div className="post">
-      <h2>{post.title}</h2>
+    <div className={`post ${isJosiane ? "highlighted" : ""}`}>
+      <h2 style={{ marginBottom: "4px" }}>{post.title}</h2>
       <p className="author">By {post.author}</p>
       <p className="preview">{post.content.slice(0, 50)}...</p>
       <p className="date">{post.date}</p>
