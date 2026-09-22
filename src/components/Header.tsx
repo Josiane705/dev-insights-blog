@@ -1,3 +1,5 @@
+import withLogger from "./withLogger";
+
 const Header = () => {
   return (
     <header>
@@ -9,4 +11,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withLogger(Header);
