@@ -1,75 +1,61 @@
-# React + TypeScript + Vite
+# Dev Insights — Mini Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An internal blog platform for Dev Insights employees to share quick tips, insights, and updates related to web development. Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Installation & Running the App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project uses **Vite** as the build tool.
 
-## React Compiler
+1. Clone the repository:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+git clone https://github.com/Josiane705/dev-insights-blog.git
+cd dev-insights-blog
 
-## Expanding the ESLint configuration
+2. Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+npm install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+3. Start the development server:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+4. Open the local URL shown in your terminal (usually `http://localhost:5173/`) in your browser.
 
-```
+## Component Design
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+- **Header** — a functional component displaying the site logo and a "New Post" link. Wrapped with the `withLogger` HOC to demonstrate mount/unmount logging.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **PostList** — a functional component holding a hardcoded array of sample posts, rendering a `Post` component for each one using `.map()` with a unique `key` prop.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Post** — a functional component that displays a single post's title, author, content preview, and date. I chose a functional component over a class component because it's simpler to read, avoids the extra boilerplate of `this` bindings, and lets me use `React.memo` directly for optimization.
 
-```
+- **App** — the root component that renders `Header` and `PostList` together.
+
+## Styling
+
+Two styling methods were used:
+- **External CSS** (`src/styles/Post.css`) for general post layout and appearance.
+- **Inline styles** for a small spacing adjustment on the post title.
+
+**Conditional styling:** posts written by "Josiane" are highlighted with a light yellow background (`.highlighted` class) to visually distinguish them from other authors' posts.
+
+## Optimization & HOCs
+
+- **`React.memo`** wraps the `Post` component to prevent unnecessary re-renders when its props haven't changed.
+
+- **`withLogger`** is a custom Higher-Order Component that logs a message to the console when a wrapped component mounts and unmounts. It is applied to the `Header` component.
+
+- Each post rendered in `PostList` uses a unique `key` prop (`post.id`) as required by React for list rendering.
+
+## Challenges
+
+Initially, the highlighted post background color made the title text nearly invisible because the app's dark theme styles were overriding the highlight text color. This was fixed by adding a more specific CSS rule (`.highlighted h2`) targeting the title directly.
+
+## Libraries Used
+
+- React
+- TypeScript
+- Vite
+- ESLint (for linting)
+
+No additional external UI or styling libraries were used.
